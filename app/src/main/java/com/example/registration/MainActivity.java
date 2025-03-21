@@ -1,0 +1,116 @@
+package com.example.registration;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.registration.adapters.ItemAdapter;
+import com.example.registration.data.Item;
+import com.example.registration.helpers.DatabaseHelper;
+import com.example.registration.helpers.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView totalPriceText;
+    private Button addBtn, clearBtn;
+
+    private RecyclerView itemRecycler;
+    private ItemAdapter itemAdapter;
+    private RecyclerView.LayoutManager itemLayoutManager;
+
+    private SearchView searchBar;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        itemAdapter.updateDataSet();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        try {
+            DatabaseHelper.initialize(this);
+            DatabaseHelper.addDummyData();
+
+            bindElements();
+            setButtons();
+            setRecycler();
+            setSearch();
+        } catch(Exception err){
+            err.printStackTrace();
+            Utils.longToast(err.getMessage(), this);
+        }
+    }
+
+    private void bindElements() {
+        totalPriceText = findViewById(R.id.totalPriceText);
+        addBtn = findViewById(R.id.addBtn);
+        clearBtn = findViewById(R.id.clearBtn);
+        itemRecycler = findViewById(R.id.itemRecycler);
+        searchBar = findViewById(R.id.searchBar);
+    }
+
+    private void setButtons(){
+        addBtn.setOnClickListener(v ->{
+            Intent intent = new Intent(MainActivity.this, ItemFormActivity.class);
+            intent.putExtra(ItemFormActivity.FORM_TYPE, ItemFormActivity.ADD_FORM);
+            startActivity(intent);
+        });
+        clearBtn.setOnClickListener(v ->{
+
+        });
+    }
+
+    private void setRecycler() {
+        itemRecycler.setHasFixedSize(false);
+
+        itemAdapter = new ItemAdapter(DatabaseHelper.getItemBank().getAll(), this);
+        itemRecycler.setAdapter(itemAdapter);
+
+        itemLayoutManager = new LinearLayoutManager(this);
+        itemRecycler.setLayoutManager(itemLayoutManager);
+    }
+
+    private void setSearch() {
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                update(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                update(s);
+                return false;
+            }
+
+            public void update(String query) {
+                List<Item> itemList = DatabaseHelper.getItemBank().getAll();
+                List<Item> results = new ArrayList<>();
+
+                query = query.toLowerCase();
+                for (Item item : itemList) {
+                    String itemName = item.getName().toLowerCase();
+                    if (itemName.contains(query)) {
+                        results.add(item);
+                    }
+                }
+
+                itemAdapter.updateDataSet(results);
+            }
+        });
+    }
+}

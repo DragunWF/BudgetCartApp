@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/mainbackground">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <SearchView
+            android:id="@+id/searchBar"
+            android:layout_marginTop="10sp"
+            android:layout_width="250sp"
+            android:layout_height="40sp"
+            android:background="@color/color5"/>
+        <Button
+            android:id="@+id/addBtn"
+            android:backgroundTint="@color/addbuttoncolor"
+            android:layout_marginTop="5sp"
+            android:layout_marginStart="20sp"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="Add"/>
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="13sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:text="My Items:"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemRecycler"
+        android:layout_width="370sp"
+        android:layout_height="540sp"
+        android:layout_marginTop="5sp"/>
+
+    <LinearLayout
+        android:layout_marginTop="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/totalPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="Total Price:"/>
+
+        <Button
+            android:id="@+id/clearBtn"
+            android:backgroundTint="@color/color1"
+            android:layout_marginStart="180sp"
+            android:textSize="13sp"
+            android:layout_width="85sp"
+            android:layout_height="45sp"
+            android:text="Clear"/>
+    </LinearLayout>
+</LinearLayout>
