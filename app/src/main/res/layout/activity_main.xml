@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="10dp"
     android:background="@color/mainbackground">
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemRecycler"
-        android:layout_width="370sp"
+        android:layout_width="385sp"
         android:layout_height="540sp"
         android:layout_marginTop="5sp"/>
 
