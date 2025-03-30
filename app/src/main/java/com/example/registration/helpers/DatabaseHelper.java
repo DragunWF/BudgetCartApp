@@ -25,7 +25,7 @@ public class DatabaseHelper {
     }
 
     public static void addDummyData(){
-        if(itemBank.getAll().isEmpty()){
+        if (itemBank.getAll().isEmpty()){
             ItemService.add(new Item("Ballpen", 3, 45.50));
             ItemService.add(new Item("Earbud", 1, 949.50));
             ItemService.add(new Item("Phone Stand", 1, 99));

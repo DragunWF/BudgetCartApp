@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.registration.ItemFormActivity;
+import com.example.registration.MainActivity;
 import com.example.registration.R;
 import com.example.registration.data.Item;
 import com.example.registration.helpers.DatabaseHelper;
@@ -25,6 +26,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private List<Item> localDataSet;
     private Context context;
+    private MainActivity mainActivity;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -73,9 +75,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView
      */
-    public ItemAdapter(List<Item> dataSet, Context context) {
+    public ItemAdapter(List<Item> dataSet, Context context, MainActivity mainActivity) {
         localDataSet = dataSet;
         this.context = context;
+        this.mainActivity = mainActivity;
     }
 
     // Create new views (invoked by the layout manager)
@@ -111,6 +114,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 public void onClick(DialogInterface dialog, int id) {
                     ItemService.delete(item.getId());
                     updateDataSet();
+                    mainActivity.updateTotalPrice();
                     Utils.longToast(item.getName() + " has been deleted!", context);
                 }
             });
