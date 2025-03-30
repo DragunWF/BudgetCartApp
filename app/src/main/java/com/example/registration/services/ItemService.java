@@ -24,4 +24,13 @@ public class ItemService {
         ModelBank<Item> bank = DatabaseHelper.getItemBank();
         bank.clear();
     }
+
+    public static double getTotalPrice() {
+        ModelBank<Item> bank = DatabaseHelper.getItemBank();
+        double totalPrice = 0;
+        for (Item item : bank.getAll()) {
+            totalPrice += item.getPrice();
+        }
+        return (double) Math.round(totalPrice * 100) / 100;
+    }
 }

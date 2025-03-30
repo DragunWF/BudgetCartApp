@@ -16,6 +16,7 @@ import com.example.registration.data.Item;
 import com.example.registration.databinding.ActivityMainBinding;
 import com.example.registration.helpers.DatabaseHelper;
 import com.example.registration.helpers.Utils;
+import com.example.registration.services.ItemService;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         try {
             DatabaseHelper.initialize(this);
             DatabaseHelper.addDummyData();
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             setButtons();
             setRecycler();
             setSearch();
+            setTotalPrice();
 
             Snackbar.make(mainView, "Welcome to the Budget Cart App!", Snackbar.LENGTH_SHORT).show();
         } catch(Exception err){
@@ -120,5 +121,9 @@ public class MainActivity extends AppCompatActivity {
                 itemAdapter.updateDataSet(results);
             }
         });
+    }
+
+    private void setTotalPrice() {
+        totalPriceText.setText(String.format("Total Price: %s PHP", ItemService.getTotalPrice()));
     }
 }
